@@ -1,0 +1,31 @@
+{
+  "name": "note-taking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GinaKui/note-taking.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Gina Kui",
+    "email": "developerkui@outlook.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GinaKui/note-taking/issues"
+  },
+  "homepage": "https://github.com/GinaKui/note-taking#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "validator": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}
