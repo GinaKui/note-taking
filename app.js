@@ -2,6 +2,8 @@
 const yargs = require('yargs');
 const notes = require('./notes');
 
+//yargs is great package to parse shell input of node.js
+
 //the yargs version isn't linked to package.json version field
 yargs.version('1.0.0');
 
@@ -64,7 +66,7 @@ yargs.command({
     }
   },
   handler(argv) {
-    notes.readNote(argv.title)
+    notes.readNote(argv.title);
   }
 });
 

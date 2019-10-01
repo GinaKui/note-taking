@@ -1,14 +1,19 @@
 const fs = require('fs');
 const chalk = require('chalk');
-//@@TODO async function should be used. Or made an async version of this file
-
-/*
-* addNote(), removeNote(), [updateNote()], listNotes()
+/** 
+* @todo async function should be used. Or made an async version of this file
+* @todo write better document using JSDoc https://en.wikipedia.org/wiki/JSDoc
 */
 
-//output all note titles to console
-//@@param undefined
-//@@return undefined
+/*
+* readNote(), addNote(), removeNote(), [updateNote()], listNotes()
+*/
+
+
+/**
+ * @param {undefined}
+ * @return {undefined}
+ */
 const listNotes = () => {
   const notes = loadNotes();
   console.log(chalk.blue.inverse('Your notes:'));
@@ -16,12 +21,11 @@ const listNotes = () => {
     console.log(`${index + 1}. ${note.title}`);
   });
 }
-
-/*
-* find one note by title and display the body in the console
-* @@param Strint title
-* @@return undefined
-*/
+/**
+ * Find the note by title and display its body in the console
+ * @param {string} title 
+ * @return {undefined}
+ */
 const readNote = title => {
   const notes = loadNotes();
   const findedNote = notes.find( note => note.title === title );
@@ -33,11 +37,10 @@ const readNote = title => {
   }
 };
 
-/* 
-* write one new note to file system 
-* @@param title String
-* @@param body String
-* @@return boolean, true if success, false if title doesn't exist
+/**
+* @param {string} title
+* @param {string} body
+* @return {boolean}, true if success, false if title doesn't exist
 */
 const addNote = (title, body) => {
   const notes = loadNotes();
@@ -56,9 +59,10 @@ const addNote = (title, body) => {
   return true;
 };
 
-// remove note from file system
-//@@param title string
-//@@return boolean, true if success, false if the title is not valid
+/**
+ * @param {string} title
+ * @return {boolean} , success or not valid title
+ */
 const removeNote = title => {
   let notes = loadNotes();
   const prevNotesLength = notes.length;
@@ -73,8 +77,9 @@ const removeNote = title => {
   return true;
 }
 
-//read data from file system
-//@@return Array or [] if no note exists
+/**
+ * @return {Array}
+ */
 const loadNotes = () => {
   try {
     const dataBuffer = fs.readFileSync('notes.json');
@@ -85,11 +90,10 @@ const loadNotes = () => {
   }
 }
 
-/*
-* save notes list to file system
-* @@param string notes
-* @@return undefined
-*/
+/**
+ * @param {Array} notes
+ * @returns {undefined}
+ */
 const saveNotes = notes => {
   const dataJSON = JSON.stringify(notes);
   fs.writeFileSync('notes.json', dataJSON);
