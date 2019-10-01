@@ -2,11 +2,10 @@ const fs = require('fs');
 const chalk = require('chalk');
 /** 
 * @todo async function should be used. Or made an async version of this file
-* @todo write better document using JSDoc https://en.wikipedia.org/wiki/JSDoc
 */
 
 /*
-* readNote(), addNote(), removeNote(), [updateNote()], listNotes()
+*  listNotes(), readNote(), addNote(), removeNote(), updateNote()
 */
 
 
@@ -68,14 +67,41 @@ const removeNote = title => {
   const prevNotesLength = notes.length;
   notes = notes.filter( note => note.title !== title );
   if (prevNotesLength === notes.length) {
-    console.log(chalk.red.inverse(`Note with title ${title} does not exist`));
+    console.log(chalk.red.inverse(`Note ${title} does not exist`));
     return false;
   }
   //save the new note list
   saveNotes(notes);
   console.log(chalk.green.inverse('Note is removed'));
   return true;
-}
+};
+
+/**
+ * @param {string} title
+ * @param {string} body
+ * @return {boolean} , success or not valid title
+ */
+const updateNote = (title, body) => {
+  let notes = loadNotes();
+  let updateFail = true;
+  notes = notes.map( note => {
+    if (note.title === title) {
+      note.body = body;
+      updateFail = false;
+    }
+    return note;
+  });
+
+  if (updateFail) {
+    console.log(chalk.red.inverse(`Note ${title} does not exist`));
+    return false;
+  }
+  //save the new note list
+  saveNotes(notes);
+  console.log(chalk.green.inverse('Note updated'));
+  return true;
+};
+
 
 /**
  * @return {Array}
@@ -88,7 +114,7 @@ const loadNotes = () => {
   } catch (err) {
     return [];
   }
-}
+};
 
 /**
  * @param {Array} notes
@@ -97,7 +123,7 @@ const loadNotes = () => {
 const saveNotes = notes => {
   const dataJSON = JSON.stringify(notes);
   fs.writeFileSync('notes.json', dataJSON);
-}
+};
 
 //file system
 /*
@@ -110,5 +136,6 @@ module.exports = {
   readNote,
   addNote,
   removeNote,
+  updateNote,
   listNotes
 };
